@@ -1,9 +1,23 @@
-user_request = input("Введите ваш запрос:")
 ai_model = "Qwen-2.5-Coder"
+coding_keywords = ["код", "python", "программирование", "скрипт", "ошибка"]
 
-if "код" in user_request:
-    print("Робот: Запрос связан с программированием")
-    print(f"Робот: Перенаправляю задачу на специализированную модель {ai_model}")
-else:
-    print("Робот: Это обычный текстовый запрос.")
-    print("Робот: Отправляю базовой модели Квен2.5")
+print("Привет")
+print("для завершения напишите 'Выход'.\n")
+
+while True:
+    user_request = input("Вы:")
+
+    if user_request.lower() == "выход":
+        print("До связи!")
+        break
+
+    is_coding = False
+    for word in coding_keywords:
+        if word in user_request.lower():
+            is_coding = True
+            break
+
+    if is_coding:
+        print(f"Перенаправляю задачу на модель {ai_model}\n")
+    else:
+        print("Отправляю базовой модели Квен2.5\n")

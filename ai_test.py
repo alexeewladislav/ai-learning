@@ -1,23 +1,29 @@
-ai_model = "Qwen-2.5-Coder"
-coding_keywords = ["код", "python", "программирование", "скрипт", "ошибка"]
+models_config = {
+    "Qwen-2.5-Coder": ["код", "phyton", "скрипт", "ошибк", "функц"],
+    "DeepSeek-Math": ["посчитай", "математик", "уровнен", "сколько будет", "формул"],
+    "Llama-3-Creative": ["придумай", "сказк", "стих", "идею", "напиши текст"],
+    "YandexGPT-Translate": ["переведи", "перевод", "английский"]
+}
 
-print("Привет")
-print("для завершения напишите 'Выход'.\n")
+def select_best_model(text):
+    clean_text = text.strip().lower()
+
+    for model_name, keywords in models_config.items():
+        for word in keywords:
+            if word in clean_text:
+                return model_name
+
+    return "Qwen-2.5-Base"
+
+print("=== Мультимодельный роутер запущен ===")
+print("Напишите 'выход' для завершения.\n")
 
 while True:
-    user_request = input("Вы:")
+    user_request = input("Вы: ")
 
-    if user_request.lower() == "выход":
+    if user_request.strip().lower() == "выход":
         print("До связи!")
         break
 
-    is_coding = False
-    for word in coding_keywords:
-        if word in user_request.lower():
-            is_coding = True
-            break
-
-    if is_coding:
-        print(f"Перенаправляю задачу на модель {ai_model}\n")
-    else:
-        print("Отправляю базовой модели Квен2.5\n")
+    chosen_model = select_best_model(user_request)
+    print(f"Запрос направлен на модель [{chosen_model}]\n")
